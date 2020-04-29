@@ -21,12 +21,12 @@ body.light {
   color: #222;
 }
 body.light a {
-  color: blue;
+  color: #06f;
 }
 body.dark {
   background-color: #222;
   color: #fff;
 }
 body.dark a {
-  color: yellow;
+  color: #fe0;
 }
