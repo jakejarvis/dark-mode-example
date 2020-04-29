@@ -1,0 +1,16 @@
+body.light {
+  background-color: #fff;
+  color: #222;
+}
+body.dark {
+  background-color: #222;
+  color: #fff;
+}
+
+.dark-mode-toggle {
+  cursor: pointer;
+  padding: 1em;
+
+  /* hide toggle until we're sure user has JS enabled */
+  visibility: hidden;
+}
