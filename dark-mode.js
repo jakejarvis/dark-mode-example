@@ -12,30 +12,28 @@
 
   // check for preset `dark_mode_pref` preference in localStorage
   var pref_key = 'dark_mode_pref';
-  var pref_dark = 'true';
-  var pref_light = 'false';
   var pref = sto.getItem(pref_key);
 
   // change CSS via these <body> classes:
-  var cls_dark = 'dark';
-  var cls_light = 'light';
+  var dark = 'dark';
+  var light = 'light';
 
   // use an element with class `dark-mode-toggle` to trigger swap when clicked
   var toggle = doc.querySelector('.dark-mode-toggle');
 
   // keep track of current state (light by default) no matter how we got there
-  var dark = false;
+  var active = false;
 
   // receives a class name and switches <body> to it
   var activateTheme = function(theme) {
-    cls.remove(cls_light, cls_dark);
+    cls.remove(dark, light);
     cls.add(theme);
-    dark = (theme === cls_dark);
+    active = (theme === dark);
   };
 
   // if user already explicitly toggled in the past, restore their preference
-  if (pref === pref_dark) activateTheme(cls_dark);
-  if (pref === pref_light) activateTheme(cls_light);
+  if (pref === dark) activateTheme(dark);
+  if (pref === light) activateTheme(light);
 
   // user has never clicked the button, so go by their OS preference until/if they do so
   if (!pref) {
@@ -44,13 +42,13 @@
     var prefers_light = '(prefers-color-scheme: light)';
 
     if (win.matchMedia(prefers_dark).matches)
-      activateTheme(cls_dark);
+      activateTheme(dark);
     else
-      activateTheme(cls_light);
+      activateTheme(light);
 
     // real-time switching if supported by OS/browser
-    win.matchMedia(prefers_dark).addListener(function(e) { if (e.matches) activateTheme(cls_dark); });
-    win.matchMedia(prefers_light).addListener(function(e) { if (e.matches) activateTheme(cls_light); });
+    win.matchMedia(prefers_dark).addListener(function(e) { if (e.matches) activateTheme(dark); });
+    win.matchMedia(prefers_light).addListener(function(e) { if (e.matches) activateTheme(light); });
   }
 
   // don't freak out if page happens not to have a toggle
@@ -61,12 +59,12 @@
     // handle toggle click
     toggle.addEventListener('click', function() {
       // switch to the opposite theme & save preference in local storage
-      if (!dark) {
-        activateTheme(cls_dark);
-        sto.setItem(pref_key, pref_dark);
+      if (!active) {
+        activateTheme(dark);
+        sto.setItem(pref_key, dark);
       } else {
-        activateTheme(cls_light);
-        sto.setItem(pref_key, pref_light);
+        activateTheme(light);
+        sto.setItem(pref_key, light);
       }
     }, true);
   }
