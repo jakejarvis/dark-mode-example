@@ -23,8 +23,8 @@
   var dark = false;
 
   // change CSS via these body classes:
-  var cls_light = 'light';
   var cls_dark = 'dark';
+  var cls_light = 'light';
 
   var activateTheme = function(theme) {
     cls.remove(cls_light, cls_dark);
