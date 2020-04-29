@@ -1,6 +1,10 @@
 /* rules that applies globally */
 body {
   font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+}
+a {
+  text-decoration: none;
 }
 .dark-mode-toggle {
   cursor: pointer;
@@ -10,12 +14,19 @@ body {
   visibility: hidden;
 }
 
-/* theme-specific rules -- you probably only want color-related stuff here */
+/* theme-specific rules -- you probably only want color-related stuff here. */
+/* SCSS makes this a whole lot easier by allowing nesting, but is not required. */
 body.light {
   background-color: #fff;
   color: #222;
 }
+body.light a {
+  color: blue;
+}
 body.dark {
   background-color: #222;
   color: #fff;
+}
+body.dark a {
+  color: limegreen;
 }
