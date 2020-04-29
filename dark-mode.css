@@ -1,3 +1,16 @@
+/* rules that applies globally */
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.dark-mode-toggle {
+  cursor: pointer;
+  padding: 1em;
+
+  /* hide toggle until we're sure user has JS enabled */
+  visibility: hidden;
+}
+
+/* theme-specific rules -- you probably only want color-related stuff here */
 body.light {
   background-color: #fff;
   color: #222;
@@ -5,12 +18,4 @@ body.light {
 body.dark {
   background-color: #222;
   color: #fff;
-}
-
-.dark-mode-toggle {
-  cursor: pointer;
-  padding: 1em;
-
-  /* hide toggle until we're sure user has JS enabled */
-  visibility: hidden;
 }
