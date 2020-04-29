@@ -29,7 +29,7 @@
   var activateTheme = function(theme) {
     cls.remove(cls_light, cls_dark);
     cls.add(theme);
-    dark = (theme == cls_dark ? true : false);
+    dark = (theme === cls_dark);
   };
 
   // if user already explicitly toggled in the past, restore their preference.
