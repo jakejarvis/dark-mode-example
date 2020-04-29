@@ -12,8 +12,8 @@
 
   // check for preset `dark_mode_pref` preference in localStorage
   var pref_key = 'dark_mode_pref';
-  var pref_on = 'true';
-  var pref_off = 'false';
+  var pref_dark = 'true';
+  var pref_light = 'false';
   var pref = sto.getItem(pref_key);
 
   // use an element with class `dark-mode-toggle` to trigger swap
@@ -33,8 +33,8 @@
   };
 
   // if user already explicitly toggled in the past, restore their preference.
-  if (pref === pref_on) activateTheme(cls_dark);
-  if (pref === pref_off) activateTheme(cls_light);
+  if (pref === pref_dark) activateTheme(cls_dark);
+  if (pref === pref_light) activateTheme(cls_light);
 
   // user has never clicked the button, so go by their OS preference until/if they do so
   if (!pref) {
@@ -62,10 +62,10 @@
       // switch to the opposite theme & save preference in local storage
       if (!dark) {
         activateTheme(cls_dark);
-        sto.setItem(pref_key, pref_on);
+        sto.setItem(pref_key, pref_dark);
       } else {
         activateTheme(cls_light);
-        sto.setItem(pref_key, pref_off);
+        sto.setItem(pref_key, pref_light);
       }
     }, true);
   }
