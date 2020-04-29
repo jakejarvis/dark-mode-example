@@ -16,23 +16,24 @@
   var pref_light = 'false';
   var pref = sto.getItem(pref_key);
 
-  // use an element with class `dark-mode-toggle` to trigger swap
+  // change CSS via these <body> classes:
+  var cls_dark = 'dark';
+  var cls_light = 'light';
+
+  // use an element with class `dark-mode-toggle` to trigger swap when clicked
   var toggle = doc.querySelector('.dark-mode-toggle');
 
   // keep track of current state (light by default) no matter how we got there
   var dark = false;
 
-  // change CSS via these body classes:
-  var cls_dark = 'dark';
-  var cls_light = 'light';
-
+  // receives a class name and switches <body> to it
   var activateTheme = function(theme) {
     cls.remove(cls_light, cls_dark);
     cls.add(theme);
     dark = (theme === cls_dark);
   };
 
-  // if user already explicitly toggled in the past, restore their preference.
+  // if user already explicitly toggled in the past, restore their preference
   if (pref === pref_dark) activateTheme(cls_dark);
   if (pref === pref_light) activateTheme(cls_light);
 
