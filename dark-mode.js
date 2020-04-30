@@ -1,6 +1,6 @@
 /* jshint esversion: 6, indent: 2, browser: true, quotmark: single */
 
-/*! Dark mode switcheroo | MIT License | jrvs.io/bWMz */
+/*! Dark mode switcheroo | MIT License | jrvs.io/darkmode */
 
 (function() {
   // improve variable mangling when minifying
