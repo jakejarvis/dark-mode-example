@@ -2,32 +2,35 @@
 
 /*! Dark mode switcheroo | MIT License | jrvs.io/darkmode */
 
-(function() {
+(function () {
   // improve variable mangling when minifying
   var win = window;
   var doc = win.document;
-  var bod = doc.body;
-  var cls = bod.classList;
-  var sto = localStorage;
+  var body = doc.body;
+  var classes = body.classList;
+  var storage = localStorage;
 
-  // check for preset `dark_mode_pref` preference in localStorage
+  // check for preset `dark_mode_pref` preference in local storage
   var pref_key = 'dark_mode_pref';
-  var pref = sto.getItem(pref_key);
+  var pref = storage.getItem(pref_key);
 
   // change CSS via these <body> classes:
   var dark = 'dark';
   var light = 'light';
 
+  // which class is <body> set to initially?
+  var default_theme = light;
+
   // use an element with class `dark-mode-toggle` to trigger swap when clicked
   var toggle = doc.querySelector('.dark-mode-toggle');
 
-  // keep track of current state (light by default) no matter how we got there
-  var active = false;
+  // keep track of current state no matter how we got there
+  var active = (default_theme === dark);
 
   // receives a class name and switches <body> to it
-  var activateTheme = function(theme) {
-    cls.remove(dark, light);
-    cls.add(theme);
+  var activateTheme = function (theme) {
+    classes.remove(dark, light);
+    classes.add(theme);
     active = (theme === dark);
   };
 
@@ -37,18 +40,23 @@
 
   // user has never clicked the button, so go by their OS preference until/if they do so
   if (!pref) {
-    // check for OS dark mode setting and switch accordingly
-    var prefers_dark = '(prefers-color-scheme: dark)';
-    var prefers_light = '(prefers-color-scheme: light)';
+    // returns media query selector syntax
+    var prefers = function (theme) {
+      return '(prefers-color-scheme: ' + theme + ')';
+    }
 
-    if (win.matchMedia(prefers_dark).matches)
+    // check for OS dark/light mode preference and switch accordingly
+    // default to `default_theme` set above if unsupported
+    if (win.matchMedia(prefers(dark)).matches)
       activateTheme(dark);
-    else
+    else if (win.matchMedia(prefers(light)).matches)
       activateTheme(light);
+    else
+      activateTheme(default_theme);
 
     // real-time switching if supported by OS/browser
-    win.matchMedia(prefers_dark).addListener(function(e) { if (e.matches) activateTheme(dark); });
-    win.matchMedia(prefers_light).addListener(function(e) { if (e.matches) activateTheme(light); });
+    win.matchMedia(prefers(dark)).addListener(function (e) { if (e.matches) activateTheme(dark); });
+    win.matchMedia(prefers(light)).addListener(function (e) { if (e.matches) activateTheme(light); });
   }
 
   // don't freak out if page happens not to have a toggle
@@ -57,14 +65,14 @@
     toggle.style.visibility = 'visible';
 
     // handle toggle click
-    toggle.addEventListener('click', function() {
+    toggle.addEventListener('click', function () {
       // switch to the opposite theme & save preference in local storage
       if (!active) {
         activateTheme(dark);
-        sto.setItem(pref_key, dark);
+        storage.setItem(pref_key, dark);
       } else {
         activateTheme(light);
-        sto.setItem(pref_key, light);
+        storage.setItem(pref_key, light);
       }
     }, true);
   }
