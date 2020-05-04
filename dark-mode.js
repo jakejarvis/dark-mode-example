@@ -67,12 +67,12 @@
     // handle toggle click
     toggle.addEventListener('click', function () {
       // switch to the opposite theme & save preference in local storage
-      if (!active) {
-        activateTheme(dark);
-        storage.setItem(pref_key, dark);
-      } else {
+      if (active) {
         activateTheme(light);
         storage.setItem(pref_key, light);
+      } else {
+        activateTheme(dark);
+        storage.setItem(pref_key, dark);
       }
     }, true);
   }
