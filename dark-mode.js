@@ -43,7 +43,7 @@
     // returns media query selector syntax
     var prefers = function (theme) {
       return '(prefers-color-scheme: ' + theme + ')';
-    }
+    };
 
     // check for OS dark/light mode preference and switch accordingly
     // default to `default_theme` set above if unsupported
